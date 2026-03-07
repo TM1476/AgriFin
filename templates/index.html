@@ -1,47 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Farmer Login | AgriFin AI</title>
+    <title>Register - AgriLend AI</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 </head>
 <body class="bg-light">
-    <nav class="navbar navbar-dark bg-success mb-5">
-        <div class="container"><a class="navbar-brand" href="/">🌾 AgriLend AI</a></div>
-    </nav>
 
+<nav class="navbar navbar-dark bg-success mb-5">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card shadow-lg border-0 p-4">
-                    <h2 class="text-center text-success mb-4">Farmer Login</h2>
-                    <input type="email" id="email" placeholder="Email Address" class="form-control mb-3">
-                    <input type="password" id="pass" placeholder="Secure Pin" class="form-control mb-4">
-                    <button onclick="handleReg()" class="btn btn-success w-full py-2 font-bold uppercase">Initialize Account</button>
+        <a class="navbar-brand" href="/">🌾 AgriLend AI</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card p-4 shadow">
+                <h2 class="text-center text-success mb-4">Farmer Registration</h2>
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="name@example.com">
                 </div>
+                <div class="mb-4">
+                    <label class="form-label">Create Secure PIN</label>
+                    <input type="password" id="pass" class="form-control" placeholder="******">
+                </div>
+                <button onclick="handleReg()" class="btn btn-success w-100 py-2 fw-bold">INITIALIZE IDENTITY</button>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyB_WZL5Lb-vAvQfAyOlReoQAo4blsi5T3k",
-            authDomain: "agrifin-1b173.firebaseapp.com",
-            projectId: "agrifin-1b173",
-            storageBucket: "agrifin-1b173.firebasestorage.app",
-            messagingSenderId: "778654496149",
-            appId: "1:778654496149:web:8252db245c5b52561ab29c"
-        };
-        firebase.initializeApp(firebaseConfig);
-        function handleReg() {
-            const e = document.getElementById('email').value;
-            const p = document.getElementById('pass').value;
-            firebase.auth().createUserWithEmailAndPassword(e, p)
-                .then(() => window.location.href = "/onboarding")
-                .catch(err => alert(err.message));
+<script>
+    // YOUR ACTUAL CONFIG
+    const firebaseConfig = {
+        apiKey: "AIzaSyB_WZL5Lb-vAvQfAyOlReoQAo4blsi5T3k",
+        authDomain: "agrifin-1b173.firebaseapp.com",
+        projectId: "agrifin-1b173",
+        storageBucket: "agrifin-1b173.firebasestorage.app",
+        messagingSenderId: "778654496149",
+        appId: "1:778654496149:web:8252db245c5b52561ab29c"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    function handleReg() {
+        const e = document.getElementById('email').value;
+        const p = document.getElementById('pass').value;
+
+        if(!e || !p) {
+            alert("Please fill all fields");
+            return;
         }
-    </script>
+
+        firebase.auth().createUserWithEmailAndPassword(e, p)
+            .then(() => {
+                window.location.href = "/onboarding";
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    }
+</script>
 </body>
 </html>

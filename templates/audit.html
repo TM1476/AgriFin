@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head><script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="/static/css/style.css"></head>
-<body class="flex items-center justify-center min-h-screen text-center">
-    <div class="glass p-12 w-[500px]">
-        <h2 class="text-2xl font-bold mb-6">Land Deed Audit</h2>
-        <div class="scan-area mb-8"><div class="scan-line"></div></div>
-        <label class="block border-2 border-dashed border-emerald-500/40 p-10 rounded-2xl cursor-pointer hover:bg-emerald-500/5 transition-all">
-            <span class="text-emerald-500 font-bold uppercase">UPLOAD DOCUMENT</span>
-            <input type="file" class="hidden" onchange="document.getElementById('nxt').style.display='block'">
-        </label>
-        <a href="/analysis" id="nxt" class="hidden mt-8 block w-full py-4 bg-emerald-500 text-black font-black rounded-2xl">RUN NEURAL SCORE</a>
+<head>
+    <title>Audit | AgriFin AI</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-success mb-5">
+        <div class="container"><a class="navbar-brand" href="/">🌾 AgriFin Document Audit</a></div>
+    </nav>
+
+    <div class="container text-center">
+        <div class="card shadow border-0 p-5 mx-auto" style="max-width: 600px;">
+            <h2 class="text-success mb-4">KYC & Land Record Audit</h2>
+            
+            <div class="scan-area mb-4 position-relative overflow-hidden bg-dark rounded" style="height: 200px;">
+                <div class="scan-line"></div>
+                <div class="d-flex align-items-center justify-content-center h-100 text-secondary">
+                    <small>Place document within frame</small>
+                </div>
+            </div>
+
+            <label class="btn btn-outline-success btn-lg w-100 mb-3 cursor-pointer">
+                UPLOAD LAND RECORD (PDF/JPG)
+                <input type="file" class="d-none" onchange="document.getElementById('nxt').classList.remove('d-none')">
+            </label>
+
+            <a href="/analysis" id="nxt" class="btn btn-success btn-lg w-100 d-none">RUN NEURAL ANALYSIS</a>
+        </div>
     </div>
 </body>
 </html>

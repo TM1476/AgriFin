@@ -1,32 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Audit | AgriFin AI</title>
+    <title>Audit - AgriFin AI</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body class="bg-light">
     <nav class="navbar navbar-dark bg-success mb-5">
-        <div class="container"><a class="navbar-brand" href="/">🌾 AgriFin Document Audit</a></div>
+        <div class="container"><a class="navbar-brand" href="/">🌾 AgriDin Audit</a></div>
     </nav>
-
     <div class="container text-center">
-        <div class="card shadow border-0 p-5 mx-auto" style="max-width: 600px;">
-            <h2 class="text-success mb-4">KYC & Land Record Audit</h2>
-            
-            <div class="scan-area mb-4 position-relative overflow-hidden bg-dark rounded" style="height: 200px;">
+        <div class="card shadow p-5 mx-auto" style="max-width: 500px;">
+            <h2 class="text-success mb-4">Land Records Scan</h2>
+            <div class="scan-area mb-4">
                 <div class="scan-line"></div>
-                <div class="d-flex align-items-center justify-content-center h-100 text-secondary">
-                    <small>Place document within frame</small>
-                </div>
+                <div class="d-flex align-items-center justify-content-center h-100 text-white-50"><small>AI Reading Document...</small></div>
             </div>
-
-            <label class="btn btn-outline-success btn-lg w-100 mb-3 cursor-pointer">
-                UPLOAD LAND RECORD (PDF/JPG)
+            <label class="btn btn-outline-success btn-lg w-100 mb-3" style="cursor: pointer;">
+                UPLOAD RECORD
                 <input type="file" class="d-none" onchange="document.getElementById('nxt').classList.remove('d-none')">
             </label>
-
-            <a href="/analysis" id="nxt" class="btn btn-success btn-lg w-100 d-none">RUN NEURAL ANALYSIS</a>
+            <a href="/analysis" id="nxt" class="btn btn-success btn-lg w-100 d-none">RUN CREDIT ANALYSIS</a>
         </div>
     </div>
 </body>

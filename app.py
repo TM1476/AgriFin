@@ -2,33 +2,38 @@ import os
 import random
 from flask import Flask, render_template, jsonify
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/')
-def index(): return render_template('index.html')
+def index():
+    return render_template('index.html')
 
 @app.route('/home')
-def home(): return render_template('home.html')
+def home():
+    return render_template('home.html')
 
 @app.route('/onboarding')
-def onboarding(): return render_template('onboarding.html')
+def onboarding():
+    return render_template('onboarding.html')
 
 @app.route('/audit')
-def audit(): return render_template('audit.html')
+def audit():
+    return render_template('audit.html')
 
 @app.route('/analysis')
-def analysis(): return render_template('analysis.html')
+def analysis():
+    return render_template('analysis.html')
 
-# API for Scorecard (Module 3a)
+# API for Module 3a: Scoring
 @app.route('/api/score', methods=['POST'])
 def get_score():
-    score = random.randint(720, 890)
+    score = random.randint(720, 895)
     return jsonify({
         "score": score, 
-        "status": "APPROVED", 
-        "details": "Satellite Analysis: NDVI 0.82 (Healthy)"
+        "status": "SUCCESS", 
+        "details": "Satellite NDVI Analysis: 0.84 (Optimal)"
     })
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    # Local running config
+    app.run(host='127.0.0.1', port=5000, debug=True)

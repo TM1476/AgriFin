@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Voice Intake - AgriFin AI</title>
+    <title>Onboarding - AgriFin AI</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-dark bg-success mb-5">
-        <div class="container"><a class="navbar-brand" href="/">🌾 AgriFin AI Assistant</a></div>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container"><a class="navbar-brand" href="/">🌾 AgriFin AI</a></div>
     </nav>
-    <div class="container text-center">
-        <div class="card shadow p-5 mx-auto" style="max-width: 500px;">
-            <h2 class="text-success mb-4">Voice Intake</h2>
-            <div id="mic-btn" class="btn btn-outline-success rounded-circle mb-4" style="width: 80px; height: 80px; font-size: 2rem; cursor: pointer;">🎤</div>
-            <div id="v-out" class="p-3 bg-white border rounded mb-4 italic">Awaiting voice...</div>
-            <a href="/audit" class="btn btn-success btn-lg w-100">Next: Document Audit</a>
+
+    <div class="container">
+        <div class="hero-text-area">
+            <h1>Voice Intake</h1>
+            <p class="lead">Describe your farm needs in your own language</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card p-5 text-center">
+                    <div id="mic-btn" class="btn btn-outline-success rounded-circle mb-4 shadow-sm" style="width:100px; height:100px; font-size:2.5rem; line-height:80px; cursor:pointer;">🎤</div>
+                    <div id="v-out" class="p-3 bg-light border rounded-3 mb-4 text-success italic" style="min-height:80px;">Awaiting voice input...</div>
+                    <a href="/audit" class="btn btn-success btn-lg w-100 fw-bold">Proceed to Verification</a>
+                </div>
+            </div>
         </div>
     </div>
+
     <script>
         const mic = document.getElementById('mic-btn');
         mic.onclick = () => {
@@ -25,7 +35,7 @@
             rec.start();
             mic.innerText = "⏳";
             rec.onresult = (e) => {
-                document.getElementById('v-out').innerText = `PARSED: ${e.results[0][0].transcript}`;
+                document.getElementById('v-out').innerText = `PARSED: "${e.results[0][0].transcript}"`;
                 mic.innerText = "🎤";
             };
         };

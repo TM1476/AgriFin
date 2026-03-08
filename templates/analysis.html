@@ -16,7 +16,7 @@
 <div class="container">
     <div class="hero-text-area">
         <h1>Credit Analysis</h1>
-        <p class="lead">Processing Satellite & Field Data</p>
+        <p class="lead">Processing Satellite NDVI & Field Data</p>
     </div>
 
     <div class="row justify-content-center">
@@ -24,7 +24,7 @@
             <div class="card p-5 text-center">
                 <h4 class="text-success fw-bold mb-4">Neural Credit Score</h4>
                 <div id="score-display" class="display-1 fw-bold text-success mb-3">--</div>
-                <p id="details-display" class="text-muted mb-4">Click to generate final report</p>
+                <p id="details-display" class="text-muted mb-4">Click to generate your financial report</p>
                 <button id="calc-btn" class="btn btn-success btn-lg w-100 fw-bold shadow">Calculate Now</button>
             </div>
         </div>
@@ -33,19 +33,21 @@
 
 <script>
     document.getElementById('calc-btn').onclick = async function() {
-        this.innerText = "Analyzing Satellite NDVI...";
+        this.innerText = "Analyzing...";
         try {
             const res = await fetch('/api/score', { method: 'POST' });
             const data = await res.json();
             
+            // Updates the UI with results from your Flask app.py
             document.getElementById('score-display').innerText = data.score;
             document.getElementById('details-display').innerText = data.details;
             this.innerText = "Analysis Complete";
             this.className = "btn btn-dark btn-lg w-100 fw-bold";
         } catch (e) {
-            alert("Connection Error to Flask Backend");
+            alert("Connection Error to Backend");
         }
     };
 </script>
+
 </body>
 </html>

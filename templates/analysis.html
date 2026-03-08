@@ -6,44 +6,65 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <nav class="navbar navbar-dark">
+        <div class="container"><a class="navbar-brand" href="/">🌾 AgriFin AI</a></div>
+    </nav>
 
-<nav class="navbar navbar-dark">
-    <div class="container"><a class="navbar-brand" href="/">🌾 AgriFin AI</a></div>
-</nav>
+    <div class="container">
+        <div class="hero-text-area">
+            <h1>Financial Analysis</h1>
+            <p class="lead">Finalizing Credit Score via Satellite Intelligence</p>
+        </div>
 
-<div class="container">
-    <div class="hero-text-area">
-        <h1>Credit Analysis</h1>
-        <p class="lead">Processing Satellite & Field Data</p>
-    </div>
-
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card p-5 text-center">
-                <h4 class="text-success fw-bold mb-4">Neural Credit Score</h4>
-                <div id="score-display" class="display-1 fw-bold text-success mb-3">--</div>
-                <p id="details-display" class="text-muted mb-4">Click below to generate report</p>
-                <button id="calc-btn" class="btn btn-success btn-lg w-100 fw-bold">Calculate Now</button>
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card p-5 text-center shadow-lg">
+                    <h4 class="text-success fw-bold mb-4">Neural Credit Score</h4>
+                    <div id="score-display" class="display-1 fw-bold text-success mb-3">--</div>
+                    <p id="details-display" class="text-muted mb-4">Click to synchronize data</p>
+                    
+                    <button id="calc-btn" class="btn btn-success btn-lg w-100 fw-bold shadow">
+                        RUN CALCULATION
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    document.getElementById('calc-btn').onclick = async function() {
-        this.innerText = "Analyzing...";
-        try {
-            const res = await fetch('/api/score', { method: 'POST' });
-            const data = await res.json();
-            
-            // Updating the UI with data from your app.py
-            document.getElementById('score-display').innerText = data.score;
-            document.getElementById('details-display').innerText = data.details;
-            this.innerText = "Analysis Complete";
-        } catch (e) {
-            alert("Error: Backend not reachable");
-        }
-    };
-</script>
+    <script>
+        document.getElementById('calc-btn').onclick = async function() {
+            const btn = this;
+            btn.innerText = "Computing Weights...";
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/score', { method: 'POST' });
+                const data = await res.json();
+                
+                // Animating the score count up for a "Perfect" feel
+                let start = 0;
+                let end = data.score;
+                let duration = 1500;
+                let startTime = null;
+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    let progress = Math.min((timestamp - startTime) / duration, 1);
+                    document.getElementById('score-display').innerText = Math.floor(progress * end);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        document.getElementById('details-display').innerText = data.details;
+                        btn.innerText = "CALCULATION COMPLETE";
+                        btn.className = "btn btn-dark btn-lg w-100 fw-bold";
+                    }
+                }
+                window.requestAnimationFrame(step);
+
+            } catch (e) {
+                alert("AI Engine Offline");
+            }
+        };
+    </script>
 </body>
 </html>

@@ -1,45 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login - AgriFin AI</title>
+    <title>Farmer Login - AgriFin AI</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-dark bg-success mb-5">
-        <div class="container"><a class="navbar-brand" href="/">🌾 AgriFin AI</a></div>
-    </nav>
+<body>
+
+<nav class="navbar navbar-dark">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card p-4 shadow-lg text-center">
-                    <h2 class="text-success mb-4">Farmer Login</h2>
-                    <input type="email" id="email" placeholder="Email" class="form-control mb-3">
-                    <input type="password" id="pass" placeholder="PIN" class="form-control mb-4">
-                    <button onclick="handleReg()" class="btn btn-success w-100 fw-bold">INITIALIZE IDENTITY</button>
-                </div>
+        <a class="navbar-brand" href="/">🌾 AgriFin AI</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="hero-title">
+        <h1>Farmer Identity Portal</h1>
+        <p class="lead">Secure Access to Agri-Fintech Services</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card p-5 text-center">
+                <h3 class="text-success fw-bold mb-4">Register / Login</h3>
+                <input type="email" id="email" placeholder="Farmer Email" class="form-control mb-3">
+                <input type="password" id="pass" placeholder="Secret PIN" class="form-control mb-4">
+                <button onclick="handleReg()" class="btn btn-success btn-lg w-100 fw-bold shadow">INITIALIZE IDENTITY</button>
             </div>
         </div>
     </div>
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyB_WZL5Lb-vAvQfAyOlReoQAo4blsi5T3k",
-            authDomain: "agrifin-1b173.firebaseapp.com",
-            projectId: "agrifin-1b173",
-            storageBucket: "agrifin-1b173.firebasestorage.app",
-            messagingSenderId: "778654496149",
-            appId: "1:778654496149:web:8252db245c5b52561ab29c"
-        };
-        firebase.initializeApp(firebaseConfig);
-        function handleReg() {
-            const e = document.getElementById('email').value;
-            const p = document.getElementById('pass').value;
-            firebase.auth().createUserWithEmailAndPassword(e, p)
-                .then(() => window.location.href="/onboarding")
-                .catch(err => alert(err.message));
-        }
-    </script>
+</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyB_WZL5Lb-vAvQfAyOlReoQAo4blsi5T3k",
+        authDomain: "agrifin-1b173.firebaseapp.com",
+        projectId: "agrifin-1b173",
+        storageBucket: "agrifin-1b173.firebasestorage.app",
+        messagingSenderId: "778654496149",
+        appId: "1:778654496149:web:8252db245c5b52561ab29c"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    function handleReg() {
+        const e = document.getElementById('email').value;
+        const p = document.getElementById('pass').value;
+        firebase.auth().createUserWithEmailAndPassword(e, p)
+            .then(() => { window.location.href = "/onboarding"; })
+            .catch(err => alert(err.message));
+    }
+</script>
 </body>
 </html>
